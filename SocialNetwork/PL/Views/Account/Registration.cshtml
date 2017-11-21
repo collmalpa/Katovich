@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Registration", "Account", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" }, { "class", "col-md-7 col-sm-pull-3  col-md-offset-4 jumbotron" }}))
+{
+    <h1>Registration</h1>
+    <h4>Join our community or login now</h4>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.Label("UserName", "Username")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-user"></i>
+            </span>
+            @Html.TextBox("UserName", null, new { @class = "form-control", placeholder = "Username" })
+        </div>
+            @Html.ValidationMessage("UserName", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("FirstName", "First name")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon glyphicon-pencil"></i>
+            </span>
+            @Html.TextBox("FirstName", null, new { @class = "form-control", placeholder = "First name" })
+        </div>
+            @Html.ValidationMessage("FirstName", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("LastName", "Last name")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon glyphicon-pencil"></i>
+            </span>
+            @Html.TextBox("LastName", null, new { @class = "form-control", placeholder = "Last name" })
+        </div>
+            @Html.ValidationMessage("LastName", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Email", "E-mail")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-envelope"></i>
+            </span>
+            @Html.TextBox("Email", null, new { @class = "form-control", placeholder = "E-mail" })
+        </div>
+            @Html.ValidationMessage("Email", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Password", "Password")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-lock"></i>
+            </span>
+            @Html.TextBox("Password", null, new { @class = "form-control", placeholder = "Password", type = "password" })
+        </div>
+            @Html.ValidationMessage("Password", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("ConfirmPassword", "Confirm your password")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-lock"></i>
+            </span>
+            @Html.TextBox("ConfirmPassword", null, new { @class = "form-control", placeholder = "Confirm your password", type = "password"})
+        </div>
+        @Html.ValidationMessage("ConfirmPassword", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Captcha", new { @class = "control-label" })
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-picture"></i>
+            </span>
+            @Html.TextBox("Captcha", null, new { @class = "form-control" })
+        </div>
+            @Html.ValidationMessage("Captcha", null, new { @class = "text-danger" })
+            <div class="img-responsive">
+                <img src="@Url.Action("Captcha", "Account")" alt="captcha" style = "margin-top: 4%"/>
+            </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-default text-center">Sign Up</button>
+}

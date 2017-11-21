@@ -1,0 +1,98 @@
+﻿@using PL.Providers
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <div class="list-group text-left" style="border: 0">
+
+            @Ajax.ActionLink(" Profile", "Index", "Profile", null, new AjaxOptions
+                                                             {
+                                                                 UpdateTargetId = "main_container",
+                                                                 InsertionMode = InsertionMode.Replace,
+                                                                 LoadingElementId = "processing",
+                                                                 AllowCache = false,
+                                                                 OnBegin = "hideContent",
+                                                                 OnComplete = "unhideContent"
+                                                             },
+                                                                 new { @class = "list-group-item glyphicon glyphicon-home",
+                                                                 style = "border: 0px" })
+            
+            @Ajax.ActionLink(" Gallery", "GetGallery", "Profile", new {ProfileId = -1 }, new AjaxOptions
+       {
+           UpdateTargetId = "main_container",
+           InsertionMode = InsertionMode.Replace,
+           HttpMethod = "GET",
+           LoadingElementId = "processing",
+           AllowCache = false,
+           OnBegin = "hideContent",
+           OnComplete = "unhideContent"
+       },
+                new { @class = "list-group-item glyphicon glyphicon-picture",
+                    style = "border: 0px" })
+
+            @Ajax.ActionLink(" Messages", "GetAllDialogs", "Message", null, new AjaxOptions
+                                                            {
+                                                                UpdateTargetId = "main_container",
+                                                                InsertionMode = InsertionMode.Replace,
+                                                                LoadingElementId = "processing",
+                                                                AllowCache = false,
+                                                                OnBegin = "hideContent",
+                                                                OnComplete = "unhideContent"
+                                                            },
+                                                                new { @class = "list-group-item glyphicon glyphicon-envelope",
+                                                                style = "border: 0px" })
+
+            @Ajax.ActionLink(" Friends", "ShowFriendList", "Friend", null,  new AjaxOptions
+                                                            {
+                                                                UpdateTargetId = "main_container",
+                                                                InsertionMode = InsertionMode.Replace,
+                                                                LoadingElementId = "processing",
+                                                                AllowCache = false,
+                                                                OnBegin = "hideContent",
+                                                                OnComplete = "unhideContent"
+                                                            },
+                                                                new { @class = "list-group-item glyphicon glyphicon-user",
+                                                                style = "border: 0px" })
+            
+            @Ajax.ActionLink(" Requests", "RequestFriendList", "Friend", null, new AjaxOptions
+                                                            {
+                                                                UpdateTargetId = "main_container",
+                                                                InsertionMode = InsertionMode.Replace,
+                                                                LoadingElementId = "processing",
+                                                                AllowCache = false,
+                                                                OnBegin = "hideContent",
+                                                                OnComplete = "unhideContent"
+                                                            },
+                                                                new { @class = "list-group-item glyphicon glyphicon-plus",
+                                                                style = "border: 0px" })
+
+            @if ((new CustomRoleProvider()).IsUserInRole(User.Identity.Name, "Admin"))
+            {
+                @Ajax.ActionLink(" Managment", "ManageUsers", "Profile", null, new AjaxOptions
+                                                                 {
+                                                                     UpdateTargetId = "main_container",
+                                                                     InsertionMode = InsertionMode.Replace,
+                                                                     LoadingElementId = "processing",
+                                                                     AllowCache = false,
+                                                                     OnBegin = "hideContent",
+                                                                     OnComplete = "unhideContent"
+                                                                 },
+                                                                     new { @class = "list-group-item glyphicon glyphicon-cog",
+                                                                     style = "border: 0px" })
+                                                                         
+                 @Ajax.ActionLink(" Filters", "FilterUsers", "Profile", null, new AjaxOptions
+                                                                  {
+                                                                      UpdateTargetId = "main_container",
+                                                                      InsertionMode = InsertionMode.Replace,
+                                                                      LoadingElementId = "processing",
+                                                                      AllowCache = false,
+                                                                      OnBegin = "hideContent",
+                                                                      OnComplete = "unhideContent"
+                                                                  },
+                                                                      new { @class = "list-group-item glyphicon glyphicon-filter",
+                                                                      style = "border: 0px" })
+            }
+        </div>
+    </div>
+}
+

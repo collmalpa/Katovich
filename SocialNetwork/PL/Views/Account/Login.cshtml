@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new {  @class = "col-md-7 col-sm-pull-3  col-md-offset-4 jumbotron", data_toggle = "validator" }))
+    {
+        <h1>Log In</h1>
+        <h4>Join our community or login now</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.Label("UserName", "Username:")
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-user"></i>
+                </span>
+                @Html.TextBox("UserName", null, new {@class = "form-control", placeholder = "Username"})
+            </div>
+            @Html.ValidationMessage("UserName", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Password", "Password:")
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-lock"></i>
+                </span>
+                @Html.TextBox("Password", null, new {@class = "form-control", type = "password", placeholder = "Password"})
+            </div>
+            @Html.ValidationMessage("Password", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-success btn-default text-center">Sign In</button>
+
+    }
+

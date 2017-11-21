@@ -1,0 +1,91 @@
+﻿@model PL.Models.Profile.PresentationOfProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<div class="row">
+    <div class="col-md-4 col-lg-4">
+        <div class="row">
+            <a href="@Url.Action("GetImage", "Profile", new {Id = Model.Id})" data-lightbox="roadtrip">
+                <img src="@Url.Action("GetImage", "Profile", new {Id = Model.Id})" class="img-rounded img-responsive center-block" />
+            </a>
+        </div>
+        <div class="row">
+            @if (User.Identity.Name == Model.Username)
+            {
+                <button class="btn-success btn btn-block" style="margin-top: 1%" onclick="location.href='@Url.Action("Edit", "Profile")'">
+                    <span class="glyphicon glyphicon-edit"></span>Edit profile
+                </button>
+            }
+            else
+            {
+                <button class="btn-success btn btn-block" value="@Model.Id" style="margin-top: 1%" onclick="location.href='@Url.Action("WriteSingleMessage", "Message", new { Id = Model.Id })'">
+                    <span class="glyphicon glyphicon-envelope"></span> Write message
+                </button>
+
+                if (ViewBag.IsFriend != null)
+                {
+                    if (ViewBag.IsFriend)
+                    {
+                        using (Html.BeginForm("DeleteFriend", "Friend",  new { Id = Model.Id }, FormMethod.Get, new {style = "margin-top: 1%"}))
+                        {
+                            <button class="btn-success btn btn-block" value="@Model.Id">
+                                <span class="glyphicon glyphicon-remove"></span>Delete from friends
+                            </button>
+                        }
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("AddFriend", "Friend", new { Id = Model.Id}, FormMethod.Get, new {style = "margin-top: 1%"}))
+                        {
+                            <button type="button" id="add" class="btn btn-success btn-block glyphicon-plus" value="@Model.Id">
+                                Add to friends
+                            </button>
+                        }
+                    }
+                }
+                else
+                {
+                    <button id="remove" type="button" class="btn btn-warning btn-block glyphicon glyphicon-time" value="@Model.Id">
+                        Waiting response
+                    </button>
+                }
+                <button class="btn-success btn btn-block" style="margin-top: 1%" onclick="location.href='@Url.Action("GetGallery", "Profile", new {ProfileId = Model.Id})'">
+                    <span class="glyphicon glyphicon-edit"></span>Show gallery
+                </button>
+            }
+        </div>
+    </div>
+    <div class="col-md-7 col-lg-7">
+        <h1>@Model.FirstName @Model.LastName</h1>
+
+        @if (Model.Gender != null)
+        {
+            if (Model.Gender == true)
+            {
+                <h4>Gender: Male</h4>
+            }
+            else
+            {
+                <h4>Gender: Female</h4>
+            }
+        }
+        @if (Model.BirthDate != null)
+        {
+            <h4>Birthday: @Model.BirthDate.Value.Date.ToString("d")</h4>
+        }
+        @if (Model.City != null)
+        {
+            <h4>City: @Model.City</h4>
+        }
+        @if (Model.ContactPhone != null)
+        {
+            <h4>Contact phone: @Model.ContactPhone</h4>
+        }
+        @if (Model.AboutMe != null)
+        {
+            <h4>About me: @Model.AboutMe</h4>
+        }
+    </div>
+</div>
